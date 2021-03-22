@@ -56,16 +56,8 @@ const processMessage = (m, id) => {
   // POMODORO
   else if (message.includes("pomodoro")) {
     if(message.includes("start")){ // start new session
-      let name = message.substring(15,message.length)
-      startTime = new Date();
-      endTime = null;
-      pomodoroCount = 0;
-      pomodoroStart = false;
-      breakStart = false;
-      // clear all timeout
-      for(t in timer){
-        clearTimeout(timer[t])
-      }
+      let name = m.substring(15,m.length)
+      clearPomodoro();
       startPomodoro(name, id);
     } else if(message.includes("status")){
       return getStatus();

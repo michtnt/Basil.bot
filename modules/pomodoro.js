@@ -1,11 +1,10 @@
 // track status for pomodoro method
-global.startTime = new Date();
-global.endTime;
-global.pomodoroCount = 0;
-global.pomodoroStart = false;
-global.breakStart = false;
-global.sessionName = "";
-global.timer = [];
+let startTime = new Date();
+let pomodoroCount = 0;
+let pomodoroStart = false;
+let breakStart = false;
+let sessionName = "";
+let timer = [];
 
 const startPomodoro = (name = "", id) => {
   sessionName = name;
@@ -49,10 +48,9 @@ const getStatus = () => {
 
 const clearPomodoro = () => {
   startTime = new Date();
-  endTime = null;
+  pomodoroCount = 0;
   pomodoroStart = false;
   breakStart = false;
-  // clear all timeout
   for(t in timer){
     clearTimeout(timer[t])
   }
