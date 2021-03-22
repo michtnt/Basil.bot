@@ -2,14 +2,15 @@ require('dotenv').config()
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const request = require('request');
 const pickupLines = require('../lib/pickupLines');
+const { trainNLP } = require('./NLP');
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
   let response;
   if (received_message.text) {    
     // [PAYLOAD BODY]
     response = {
-      "text": processMessage(received_message.text, sender_psid)
+      "text": await processMessage(received_message.text, sender_psid)
     }
   }  
   sendMessenger(sender_psid, response); 
@@ -45,7 +46,7 @@ const sendMessenger = (sender_psid, response) => {
 
 // TODO NLP
 // Natural Language Processing (NLP) helps machines “read” text 
-const processMessage = (m, id) => {
+const processMessage = async (m, id) => {
   let message = m.toLowerCase()
   // PICKUP LINES
   if(message.includes("pickup")){
@@ -67,9 +68,13 @@ const processMessage = (m, id) => {
       return `pomodoro help: bring this prompt up again\npomodoro start [session name]: start pomodoro\npomodoro status: break/current session status\npomodoro clear: clear session`
     }
   } 
-
   else {
-    return `Michelle's braincells is not available in the moment...`
+    let result = await trainNLP(message);
+    if(result && result != "Sorry, I don't understand"){
+      return result
+    } else {
+      return `Michelle's braincells is not available in the moment...`
+    }
   }
 }
 
