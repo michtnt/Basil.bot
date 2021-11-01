@@ -4,6 +4,8 @@ Basil is a bot that is created through Facebook API. It uses [NLP.js](https://gi
 - Pomodoro
 - Random Pickup Lines
 
+Try the bot on Facebook Messenger: https://www.facebook.com/Michelle-Bot-Page-109639014543082
+
 ## Get Started
 
 Set up your Facebook page [More details here](https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start/) to generate your page access token.
